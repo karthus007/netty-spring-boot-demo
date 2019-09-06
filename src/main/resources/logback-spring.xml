@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds">
 
-	<property name="LOG_FILE_SIZE" value="1MB"/>
+	<property name="LOG_FILE_SIZE" value="10MB"/>
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n"/>
 
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
@@ -83,15 +83,10 @@
         <appender-ref ref="stdout"/>
     </root>
     <!--	info 仅仅输出全部INFO级别日志-->
-    <logger name="com.andin" level="INFO" additivity="false">
+    <logger name="com.andin" level="DEBUG" additivity="true">
         <appender-ref ref="info_log"/>
-    </logger>
-    <!--	debug仅仅输出全部DEBUG级别日志-->
-    <logger name="com.andin" level="DEBUG" additivity="false">
         <appender-ref ref="debug_log"/>
-    </logger>
-    <!--	error仅仅输出全部ERROR级别日志-->
-    <logger name="com.andin" level="ERROR" additivity="false">
         <appender-ref ref="error_log"/>
     </logger>
+    
 </configuration>
