@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+	<property name="LOG_FILE_SIZE" value="1MB"/>
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="error_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+		    <level>ERROR</level>
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/error/error.log.%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <!--	DEBUG 日志仅保留两个,每个最大为1M,所有文件最大为5Gb		-->
+            <maxHistory>20</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="debug_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/debug.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+		    <level>DEBUG</level>
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/debug/debug.log.%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <!--	DEBUG 日志仅保留两个,每个最大为1M,所有文件最大为5Gb		-->
+            <maxHistory>20</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="info_log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/info.log</file>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+		    <level>INFO</level>
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_PATH}/info/info.log.%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <!-- 保留最近的30个文件, 当文件到达1M时,进行文件切换 -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>5GB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_FILE_SIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--	控制台输出全部DEBUG 以下级别日志-->
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+    </root>
+    <!--	info 仅仅输出全部INFO级别日志-->
+    <logger name="com.andin" level="INFO" additivity="false">
+        <appender-ref ref="info_log"/>
+    </logger>
+    <!--	debug仅仅输出全部DEBUG级别日志-->
+    <logger name="com.andin" level="DEBUG" additivity="false">
+        <appender-ref ref="debug_log"/>
+    </logger>
+    <!--	error仅仅输出全部ERROR级别日志-->
+    <logger name="com.andin" level="ERROR" additivity="false">
+        <appender-ref ref="error_log"/>
+    </logger>
+</configuration>
