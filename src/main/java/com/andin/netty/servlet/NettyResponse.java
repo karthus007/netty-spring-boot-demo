@@ -23,7 +23,7 @@ public class NettyResponse {
 	
 	public NettyResponse() {
 		//添加默认的响应编码
-		addHeader(ConstantUtil.CONTENT_TYPE, ConstantUtil.APPLICATION_JSON);
+		addHeader(ConstantUtil.CONTENT_TYPE, ConstantUtil.APPLICATION_JSON_UTF_8);
 		//添加跨域响应参数
 		addHeader(ConstantUtil.ACCESS_CONTROL_ALLOW_ORIGIN, ConstantUtil.ACCESS_CONTROL_ALLOW_ORIGIN_VALUE);
 		addHeader(ConstantUtil.ACCESS_CONTROL_ALLOW_HEADERS, ConstantUtil.ACCESS_CONTROL_ALLOW_HEADERS_VALUE);
