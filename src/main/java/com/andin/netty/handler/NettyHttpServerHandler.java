@@ -94,6 +94,7 @@ public class NettyHttpServerHandler extends SimpleChannelInboundHandler<FullHttp
 		
 		if(decoder != null) {
 			decoder.destroy();
+			decoder = null;
 		}
 		
 	}
